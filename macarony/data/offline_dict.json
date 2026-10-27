@@ -1,0 +1,552 @@
+{
+ "big": {
+  "de": "groß",
+  "es": "grande",
+  "fr": "grand",
+  "it": "grande",
+  "nl": "groot",
+  "pl": "duży",
+  "pt": "grande",
+  "sv": "stor"
+ },
+ "bird": {
+  "de": "Vogel",
+  "es": "pájaro",
+  "fr": "oiseau",
+  "it": "uccello",
+  "nl": "vogel",
+  "pl": "ptak",
+  "pt": "pássaro",
+  "sv": "fågel"
+ },
+ "book": {
+  "de": "Buch",
+  "es": "libro",
+  "fr": "livre",
+  "it": "libro",
+  "nl": "boek",
+  "pl": "książka",
+  "pt": "livro",
+  "sv": "bok"
+ },
+ "bread": {
+  "de": "Brot",
+  "es": "pan",
+  "fr": "pain",
+  "it": "pane",
+  "nl": "brood",
+  "pl": "chleb",
+  "pt": "pão",
+  "sv": "bröd"
+ },
+ "bridge": {
+  "de": "Brücke",
+  "es": "puente",
+  "fr": "pont",
+  "it": "ponte",
+  "nl": "brug",
+  "pl": "most",
+  "pt": "ponte",
+  "sv": "bro"
+ },
+ "cat": {
+  "de": "Katze",
+  "es": "gato",
+  "fr": "chat",
+  "it": "gatto",
+  "nl": "kat",
+  "pl": "kot",
+  "pt": "gato",
+  "sv": "katt"
+ },
+ "cheese": {
+  "de": "Käse",
+  "es": "queso",
+  "fr": "fromage",
+  "it": "formaggio",
+  "nl": "kaas",
+  "pl": "ser",
+  "pt": "queijo",
+  "sv": "ost"
+ },
+ "child": {
+  "de": "Kind",
+  "es": "niño",
+  "fr": "enfant",
+  "it": "bambino",
+  "nl": "kind",
+  "pl": "dziecko",
+  "pt": "criança",
+  "sv": "barn"
+ },
+ "city": {
+  "de": "Stadt",
+  "es": "ciudad",
+  "fr": "ville",
+  "it": "città",
+  "nl": "stad",
+  "pl": "miasto",
+  "pt": "cidade",
+  "sv": "stad"
+ },
+ "cloud": {
+  "de": "Wolke",
+  "es": "nube",
+  "fr": "nuage",
+  "it": "nuvola",
+  "nl": "wolk",
+  "pl": "chmura",
+  "pt": "nuvem",
+  "sv": "moln"
+ },
+ "cold": {
+  "de": "kalt",
+  "es": "frío",
+  "fr": "froid",
+  "it": "freddo",
+  "nl": "koud",
+  "pl": "zimny",
+  "pt": "frio",
+  "sv": "kall"
+ },
+ "dance": {
+  "de": "tanzen",
+  "es": "bailar",
+  "fr": "danser",
+  "it": "ballare",
+  "nl": "dansen",
+  "pl": "tańczyć",
+  "pt": "dançar",
+  "sv": "dansa"
+ },
+ "day": {
+  "de": "Tag",
+  "es": "día",
+  "fr": "jour",
+  "it": "giorno",
+  "nl": "dag",
+  "pl": "dzień",
+  "pt": "dia",
+  "sv": "dag"
+ },
+ "dog": {
+  "de": "Hund",
+  "es": "perro",
+  "fr": "chien",
+  "it": "cane",
+  "nl": "hond",
+  "pl": "pies",
+  "pt": "cão",
+  "sv": "hund"
+ },
+ "door": {
+  "de": "Tür",
+  "es": "puerta",
+  "fr": "porte",
+  "it": "porta",
+  "nl": "deur",
+  "pl": "drzwi",
+  "pt": "porta",
+  "sv": "dörr"
+ },
+ "eye": {
+  "de": "Auge",
+  "es": "ojo",
+  "fr": "œil",
+  "it": "occhio",
+  "nl": "oog",
+  "pl": "oko",
+  "pt": "olho",
+  "sv": "öga"
+ },
+ "father": {
+  "de": "Vater",
+  "es": "padre",
+  "fr": "père",
+  "it": "padre",
+  "nl": "vader",
+  "pl": "ojciec",
+  "pt": "pai",
+  "sv": "far"
+ },
+ "fire": {
+  "de": "Feuer",
+  "es": "fuego",
+  "fr": "feu",
+  "it": "fuoco",
+  "nl": "vuur",
+  "pl": "ogień",
+  "pt": "fogo",
+  "sv": "eld"
+ },
+ "flower": {
+  "de": "Blume",
+  "es": "flor",
+  "fr": "fleur",
+  "it": "fiore",
+  "nl": "bloem",
+  "pl": "kwiat",
+  "pt": "flor",
+  "sv": "blomma"
+ },
+ "forest": {
+  "de": "Wald",
+  "es": "bosque",
+  "fr": "forêt",
+  "it": "foresta",
+  "nl": "bos",
+  "pl": "las",
+  "pt": "floresta",
+  "sv": "skog"
+ },
+ "friend": {
+  "de": "Freund",
+  "es": "amigo",
+  "fr": "ami",
+  "it": "amico",
+  "nl": "vriend",
+  "pl": "przyjaciel",
+  "pt": "amigo",
+  "sv": "vän"
+ },
+ "garden": {
+  "de": "Garten",
+  "es": "jardín",
+  "fr": "jardin",
+  "it": "giardino",
+  "nl": "tuin",
+  "pl": "ogród",
+  "pt": "jardim",
+  "sv": "trädgård"
+ },
+ "good": {
+  "de": "gut",
+  "es": "bueno",
+  "fr": "bon",
+  "it": "buono",
+  "nl": "goed",
+  "pl": "dobry",
+  "pt": "bom",
+  "sv": "bra"
+ },
+ "hand": {
+  "de": "Hand",
+  "es": "mano",
+  "fr": "main",
+  "it": "mano",
+  "nl": "hand",
+  "pl": "ręka",
+  "pt": "mão",
+  "sv": "hand"
+ },
+ "head": {
+  "de": "Kopf",
+  "es": "cabeza",
+  "fr": "tête",
+  "it": "testa",
+  "nl": "hoofd",
+  "pl": "głowa",
+  "pt": "cabeça",
+  "sv": "huvud"
+ },
+ "heart": {
+  "de": "Herz",
+  "es": "corazón",
+  "fr": "cœur",
+  "it": "cuore",
+  "nl": "hart",
+  "pl": "serce",
+  "pt": "coração",
+  "sv": "hjärta"
+ },
+ "house": {
+  "de": "Haus",
+  "es": "casa",
+  "fr": "maison",
+  "it": "casa",
+  "nl": "huis",
+  "pl": "dom",
+  "pt": "casa",
+  "sv": "hus"
+ },
+ "light": {
+  "de": "Licht",
+  "es": "luz",
+  "fr": "lumière",
+  "it": "luce",
+  "nl": "licht",
+  "pl": "światło",
+  "pt": "luz",
+  "sv": "ljus"
+ },
+ "love": {
+  "de": "Liebe",
+  "es": "amor",
+  "fr": "amour",
+  "it": "amore",
+  "nl": "liefde",
+  "pl": "miłość",
+  "pt": "amor",
+  "sv": "kärlek"
+ },
+ "milk": {
+  "de": "Milch",
+  "es": "leche",
+  "fr": "lait",
+  "it": "latte",
+  "nl": "melk",
+  "pl": "mleko",
+  "pt": "leite",
+  "sv": "mjölk"
+ },
+ "moon": {
+  "de": "Mond",
+  "es": "luna",
+  "fr": "lune",
+  "it": "luna",
+  "nl": "maan",
+  "pl": "księżyc",
+  "pt": "lua",
+  "sv": "måne"
+ },
+ "mother": {
+  "de": "Mutter",
+  "es": "madre",
+  "fr": "mère",
+  "it": "madre",
+  "nl": "moeder",
+  "pl": "matka",
+  "pt": "mãe",
+  "sv": "mor"
+ },
+ "mountain": {
+  "de": "Berg",
+  "es": "montaña",
+  "fr": "montagne",
+  "it": "montagna",
+  "nl": "berg",
+  "pl": "góra",
+  "pt": "montanha",
+  "sv": "berg"
+ },
+ "music": {
+  "de": "Musik",
+  "es": "música",
+  "fr": "musique",
+  "it": "musica",
+  "nl": "muziek",
+  "pl": "muzyka",
+  "pt": "música",
+  "sv": "musik"
+ },
+ "night": {
+  "de": "Nacht",
+  "es": "noche",
+  "fr": "nuit",
+  "it": "notte",
+  "nl": "nacht",
+  "pl": "noc",
+  "pt": "noite",
+  "sv": "natt"
+ },
+ "rain": {
+  "de": "Regen",
+  "es": "lluvia",
+  "fr": "pluie",
+  "it": "pioggia",
+  "nl": "regen",
+  "pl": "deszcz",
+  "pt": "chuva",
+  "sv": "regn"
+ },
+ "river": {
+  "de": "Fluss",
+  "es": "río",
+  "fr": "rivière",
+  "it": "fiume",
+  "nl": "rivier",
+  "pl": "rzeka",
+  "pt": "rio",
+  "sv": "flod"
+ },
+ "road": {
+  "de": "Weg",
+  "es": "carretera",
+  "fr": "route",
+  "it": "strada",
+  "nl": "weg",
+  "pl": "droga",
+  "pt": "estrada",
+  "sv": "väg"
+ },
+ "sea": {
+  "de": "Meer",
+  "es": "mar",
+  "fr": "mer",
+  "it": "mare",
+  "nl": "zee",
+  "pl": "morze",
+  "pt": "mar",
+  "sv": "hav"
+ },
+ "sing": {
+  "de": "singen",
+  "es": "cantar",
+  "fr": "chanter",
+  "it": "cantare",
+  "nl": "zingen",
+  "pl": "śpiewać",
+  "pt": "cantar",
+  "sv": "sjunga"
+ },
+ "small": {
+  "de": "klein",
+  "es": "pequeño",
+  "fr": "petit",
+  "it": "piccolo",
+  "nl": "klein",
+  "pl": "mały",
+  "pt": "pequeno",
+  "sv": "liten"
+ },
+ "snow": {
+  "de": "Schnee",
+  "es": "nieve",
+  "fr": "neige",
+  "it": "neve",
+  "nl": "sneeuw",
+  "pl": "śnieg",
+  "pt": "neve",
+  "sv": "snö"
+ },
+ "star": {
+  "de": "Stern",
+  "es": "estrella",
+  "fr": "étoile",
+  "it": "stella",
+  "nl": "ster",
+  "pl": "gwiazda",
+  "pt": "estrela",
+  "sv": "stjärna"
+ },
+ "stone": {
+  "de": "Stein",
+  "es": "piedra",
+  "fr": "pierre",
+  "it": "pietra",
+  "nl": "steen",
+  "pl": "kamień",
+  "pt": "pedra",
+  "sv": "sten"
+ },
+ "street": {
+  "de": "Straße",
+  "es": "calle",
+  "fr": "rue",
+  "it": "strada",
+  "nl": "straat",
+  "pl": "ulica",
+  "pt": "rua",
+  "sv": "gata"
+ },
+ "sun": {
+  "de": "Sonne",
+  "es": "sol",
+  "fr": "soleil",
+  "it": "sole",
+  "nl": "zon",
+  "pl": "słońce",
+  "pt": "sol",
+  "sv": "sol"
+ },
+ "table": {
+  "de": "Tisch",
+  "es": "mesa",
+  "fr": "table",
+  "it": "tavolo",
+  "nl": "tafel",
+  "pl": "stół",
+  "pt": "mesa",
+  "sv": "bord"
+ },
+ "time": {
+  "de": "Zeit",
+  "es": "tiempo",
+  "fr": "temps",
+  "it": "tempo",
+  "nl": "tijd",
+  "pl": "czas",
+  "pt": "tempo",
+  "sv": "tid"
+ },
+ "tree": {
+  "de": "Baum",
+  "es": "árbol",
+  "fr": "arbre",
+  "it": "albero",
+  "nl": "boom",
+  "pl": "drzewo",
+  "pt": "árvore",
+  "sv": "träd"
+ },
+ "warm": {
+  "de": "warm",
+  "es": "cálido",
+  "fr": "chaud",
+  "it": "caldo",
+  "nl": "warm",
+  "pl": "ciepły",
+  "pt": "quente",
+  "sv": "varm"
+ },
+ "water": {
+  "de": "Wasser",
+  "es": "agua",
+  "fr": "eau",
+  "it": "acqua",
+  "nl": "water",
+  "pl": "woda",
+  "pt": "água",
+  "sv": "vatten"
+ },
+ "wind": {
+  "de": "Wind",
+  "es": "viento",
+  "fr": "vent",
+  "it": "vento",
+  "nl": "wind",
+  "pl": "wiatr",
+  "pt": "vento",
+  "sv": "vind"
+ },
+ "window": {
+  "de": "Fenster",
+  "es": "ventana",
+  "fr": "fenêtre",
+  "it": "finestra",
+  "nl": "raam",
+  "pl": "okno",
+  "pt": "janela",
+  "sv": "fönster"
+ },
+ "wine": {
+  "de": "Wein",
+  "es": "vino",
+  "fr": "vin",
+  "it": "vino",
+  "nl": "wijn",
+  "pl": "wino",
+  "pt": "vinho",
+  "sv": "vin"
+ },
+ "work": {
+  "de": "Arbeit",
+  "es": "trabajo",
+  "fr": "travail",
+  "it": "lavoro",
+  "nl": "werk",
+  "pl": "praca",
+  "pt": "trabalho",
+  "sv": "arbete"
+ }
+}

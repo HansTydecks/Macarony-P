@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Macarony</title>
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --muted: #6b6861;
+    --line: #dcd8d0;
+    --accent: #9a3412;
+    --accent-soft: #fdeee6;
+    --chip: #efece6;
+    --ok: #166534;
+    --warn: #92400e;
+    --radius: 10px;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    /* One hue per language, so a fragment's origin is visible at a glance.
+       Dark mode needs lighter inks, so these are redefined below. */
+    --l0: #b45309; --l1: #1d4ed8; --l2: #047857; --l3: #a21caf; --l4: #b91c1c;
+    --l5: #0e7490; --l6: #4d7c0f; --l7: #7c3aed; --l8: #be185d; --l9: #0f766e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17161a;
+      --panel: #201f24;
+      --ink: #eceaf0;
+      --muted: #a09daa;
+      --line: #35333c;
+      --accent: #fb923c;
+      --accent-soft: #3a2415;
+      --chip: #2c2a32;
+      --ok: #86efac;
+      --warn: #fcd34d;
+      --l0: #fbbf24; --l1: #93c5fd; --l2: #6ee7b7; --l3: #f0abfc; --l4: #fca5a5;
+      --l5: #67e8f9; --l6: #bef264; --l7: #c4b5fd; --l8: #f9a8d4; --l9: #5eead4;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #17161a; --panel: #201f24; --ink: #eceaf0; --muted: #a09daa;
+    --line: #35333c; --accent: #fb923c; --accent-soft: #3a2415; --chip: #2c2a32;
+    --ok: #86efac; --warn: #fcd34d;
+    --l0: #fbbf24; --l1: #93c5fd; --l2: #6ee7b7; --l3: #f0abfc; --l4: #fca5a5;
+    --l5: #67e8f9; --l6: #bef264; --l7: #c4b5fd; --l8: #f9a8d4; --l9: #5eead4;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 28px 16px 72px; }
+
+  header { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  h1 { font-size: 26px; margin: 0; letter-spacing: -0.01em; }
+  h1 .dot { color: var(--accent); }
+  .tagline { color: var(--muted); font-size: 14px; margin: 0 0 22px; }
+
+  .panel {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px; margin-bottom: 18px;
+  }
+  .panel h2 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--muted); margin: 0 0 12px; font-weight: 600;
+  }
+
+  textarea {
+    width: 100%; min-height: 64px; resize: vertical; padding: 10px 12px;
+    font: inherit; color: var(--ink); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 8px;
+  }
+  textarea:focus, select:focus, input:focus, button:focus-visible {
+    outline: 2px solid var(--accent); outline-offset: 1px;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; min-height: 34px; align-items: center; }
+  .chip {
+    font: inherit; cursor: pointer; padding: 5px 11px; border-radius: 999px;
+    border: 1px solid var(--line); background: var(--chip); color: var(--ink);
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .chip[aria-pressed="true"] { color: #17161a; }
+  }
+  :root[data-theme="dark"] .chip[aria-pressed="true"] { color: #17161a; }
+  .hint { color: var(--muted); font-size: 13px; }
+
+  .settings { display: grid; gap: 14px 18px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  label.field { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--muted); }
+  label.field > span { font-weight: 500; }
+  select, input[type="number"] {
+    font: inherit; padding: 7px 9px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  }
+  .checks { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; font-size: 14px; }
+  .checks label { display: flex; align-items: center; gap: 6px; }
+  .langbox {
+    display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 10px;
+    max-height: 132px; overflow-y: auto; padding: 10px;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--bg);
+  }
+  .langbox label { display: flex; align-items: center; gap: 5px; font-size: 13px; width: 136px; }
+
+  .actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  button.primary {
+    font: inherit; font-weight: 600; cursor: pointer; padding: 9px 20px;
+    border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  }
+  button.primary[disabled] { opacity: 0.55; cursor: progress; }
+  button.ghost {
+    font: inherit; cursor: pointer; padding: 7px 13px; border-radius: 8px;
+    border: 1px solid var(--line); background: transparent; color: var(--ink);
+  }
+  #status { color: var(--muted); font-size: 13px; }
+  .notice { color: var(--warn); font-size: 13px; margin-top: 10px; }
+  .fail { color: var(--accent); }
+
+  .result { border-left: 3px solid var(--accent); background: var(--accent-soft); }
+  .result .sentence { font-size: 20px; line-height: 1.5; margin: 0 0 12px; }
+  .result .sentence mark {
+    background: transparent; color: var(--accent); font-weight: 700;
+    font-family: var(--mono); padding: 0;
+  }
+
+  .word-card h3 { margin: 0 0 2px; font-size: 18px; }
+  .word-card h3 .arrow { color: var(--muted); font-weight: 400; }
+  .word-card h3 .mixed { font-family: var(--mono); color: var(--accent); }
+  .step {
+    margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line);
+  }
+  .step > h4 {
+    margin: 0 0 10px; font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 5px 8px 5px 0; border-bottom: 1px solid var(--line); }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
+  td.cut { font-family: var(--mono); }
+  tr.unused td { color: var(--muted); }
+  .why { font-size: 12px; color: var(--muted); }
+
+  .fraglang { margin-bottom: 9px; }
+  .fraglang .lname { font-size: 13px; color: var(--muted); }
+  .fraglang .lname b { color: var(--ink); font-family: var(--mono); }
+  .frow { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-top: 3px; }
+  .rolelabel { font-size: 11px; color: var(--muted); width: 48px; flex: none; text-transform: uppercase; letter-spacing: 0.04em; }
+  .frag {
+    font-family: var(--mono); font-size: 12px; padding: 2px 6px;
+    border-radius: 5px; background: var(--chip); border: 1px solid var(--line);
+  }
+
+  ol.cands { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+  ol.cands li { display: flex; }
+  .cand {
+    flex: 1; display: flex; align-items: center; gap: 12px; text-align: left;
+    font: inherit; cursor: pointer; padding: 8px 12px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--ink);
+  }
+  .cand:hover { border-color: var(--accent); }
+  .cand[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+  .cand .rank { color: var(--muted); font-size: 12px; width: 20px; flex: none; }
+  .cand .built { font-family: var(--mono); font-size: 16px; letter-spacing: 0.01em; }
+  .cand .score { margin-left: auto; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .cand .seg { padding: 1px 0; border-bottom: 2px solid currentColor; }
+  .legend { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 9px; font-size: 12px; color: var(--muted); }
+  .legend span b { border-bottom: 2px solid currentColor; font-family: var(--mono); color: var(--ink); }
+  .sr {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Macarony<span class="dot">.</span></h1>
+    <button class="ghost" id="theme" type="button">Toggle theme</button>
+  </header>
+  <p class="tagline">
+    Pick words in a sentence. Each one is translated into several languages, the
+    translations are cut into fragments, and fragments from different languages
+    are glued back together into a word that belongs to none of them.
+  </p>
+
+  <section class="panel">
+    <h2>Step 1 &middot; Sentence and words</h2>
+    <textarea id="sentence" spellcheck="false"
+      aria-label="Sentence">The bird sings in the garden.</textarea>
+    <div class="chips" id="chips"></div>
+    <p class="hint" id="pickhint">Click the words you want to macaronize.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Settings</h2>
+    <div class="settings">
+      <label class="field"><span>Parts</span>
+        <select id="parts">
+          <option value="3" selected>3 &mdash; prefix + middle + suffix</option>
+          <option value="2">2 &mdash; prefix + suffix</option>
+        </select>
+      </label>
+      <label class="field"><span>Fragment length</span>
+        <span style="display:flex;gap:6px;align-items:center">
+          <input type="number" id="minFrag" min="1" max="6" value="2" style="width:62px"
+            aria-label="Minimum fragment length">
+          <span aria-hidden="true">&ndash;</span>
+          <input type="number" id="maxFrag" min="1" max="8" value="4" style="width:62px"
+            aria-label="Maximum fragment length">
+        </span>
+      </label>
+      <label class="field"><span>Results per word</span>
+        <input type="number" id="count" min="1" max="60" value="10">
+      </label>
+      <label class="field"><span>Seed</span>
+        <input type="number" id="seed" value="0">
+      </label>
+    </div>
+    <div class="checks">
+      <label><input type="checkbox" id="asciiOnly" checked> Strip accents</label>
+      <label><input type="checkbox" id="offline"> Offline dictionary only</label>
+      <label><input type="checkbox" id="fixedOrder"> Use the language order below</label>
+    </div>
+    <div class="langbox" id="langbox" role="group" aria-label="Languages"></div>
+    <div class="actions">
+      <button class="primary" id="go" type="button">Generate</button>
+      <button class="ghost" id="reroll" type="button">New seed</button>
+      <span id="status"></span>
+    </div>
+    <p class="notice" id="notice" hidden></p>
+  </section>
+
+  <section class="panel result" id="result" hidden>
+    <h2>Result</h2>
+    <p class="sentence" id="outSentence"></p>
+    <button class="ghost" id="copy" type="button">Copy sentence</button>
+  </section>
+
+  <div id="cards"></div>
+</div>
+
+<script>
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+const ROLES = ["prefix", "middle", "suffix"];
+// One hue per language, so you can see which fragment came from where.  The
+// actual colors are CSS variables (--l0..--l9) so they follow the theme.
+const LANG_COLOR_COUNT = 10;
+
+let tokens = [];
+let selected = new Set();
+let lastResult = null;
+let chosen = new Map();   // token index -> candidate word chosen in the UI
+let langOrder = [];       // the order languages were ticked in
+
+const text = (value) => document.createTextNode(value);
+function el(tag, attrs = {}, kids = []) {
+  const node = document.createElement(tag);
+  for (const [key, value] of Object.entries(attrs)) {
+    if (value === null || value === false) continue;
+    if (key === "class") node.className = value;
+    else if (key === "text") node.textContent = value;
+    else node.setAttribute(key, value);
+  }
+  for (const kid of [].concat(kids)) node.appendChild(kid);
+  return node;
+}
+
+async function api(path, body) {
+  const response = await fetch(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  const data = await response.json().catch(() => ({ error: "unreadable response" }));
+  if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+  return data;
+}
+
+/* ---- Step 1: words as chips ---------------------------------------- */
+
+async function refreshTokens() {
+  const sentence = $("sentence").value;
+  try {
+    const data = await api("/api/tokenize", { sentence });
+    tokens = data.tokens;
+  } catch (err) {
+    setStatus(`Could not read the sentence: ${err.message}`, true);
+    return;
+  }
+  // Keep a word selected across edits only if that slot is still a word.
+  selected = new Set([...selected].filter((i) => tokens[i] && tokens[i].is_word));
+  drawChips();
+}
+
+function drawChips() {
+  const box = $("chips");
+  box.textContent = "";
+  const words = tokens.filter((token) => token.is_word);
+  if (!words.length) {
+    box.appendChild(el("span", { class: "hint", text: "Type a sentence to pick words from." }));
+    return;
+  }
+  for (const token of words) {
+    const chip = el("button", {
+      type: "button", class: "chip", "data-index": token.index,
+      "aria-pressed": selected.has(token.index) ? "true" : "false",
+      text: token.text,
+    });
+    chip.addEventListener("click", () => {
+      if (selected.has(token.index)) selected.delete(token.index);
+      else selected.add(token.index);
+      chip.setAttribute("aria-pressed", selected.has(token.index) ? "true" : "false");
+      updateHint();
+    });
+    box.appendChild(chip);
+  }
+  updateHint();
+}
+
+function updateHint() {
+  const n = selected.size;
+  $("pickhint").textContent = n
+    ? `${n} word${n === 1 ? "" : "s"} picked.`
+    : "Click the words you want to macaronize.";
+}
+
+/* ---- Languages ------------------------------------------------------ */
+
+async function loadLanguages() {
+  const response = await fetch("/api/languages");
+  const data = await response.json();
+  const defaults = new Set(data.default);
+  langOrder = [...data.default];
+  const box = $("langbox");
+  box.textContent = "";
+  for (const lang of data.all) {
+    const input = el("input", {
+      type: "checkbox", value: lang.code,
+      checked: defaults.has(lang.code) ? "checked" : null,
+    });
+    input.addEventListener("change", () => {
+      if (input.checked) { if (!langOrder.includes(lang.code)) langOrder.push(lang.code); }
+      else langOrder = langOrder.filter((code) => code !== lang.code);
+    });
+    box.appendChild(el("label", { title: lang.code },
+      [input, text(` ${lang.name} `), el("span", { class: "hint", text: lang.code })]));
+  }
+  if (data.force_offline) {
+    $("offline").checked = true;
+    $("offline").disabled = true;
+    showNotice("Started with --offline: only the bundled dictionary is used.");
+  }
+}
+
+function pickedLanguages() {
+  const ticked = [...$("langbox").querySelectorAll("input:checked")].map((i) => i.value);
+  // Report them in the order they were ticked, which is what the fixed-order
+  // option uses for prefix / middle / suffix.
+  const ordered = langOrder.filter((code) => ticked.includes(code));
+  for (const code of ticked) if (!ordered.includes(code)) ordered.push(code);
+  return ordered;
+}
+
+/* ---- Step 2 + 3: run and render ------------------------------------- */
+
+function readOptions() {
+  const languages = pickedLanguages();
+  const parts = Number($("parts").value);
+  return {
+    languages,
+    parts,
+    language_order: $("fixedOrder").checked ? languages.slice(0, parts) : null,
+    min_frag: Number($("minFrag").value),
+    max_frag: Number($("maxFrag").value),
+    count: Number($("count").value),
+    seed: Number($("seed").value),
+    ascii_only: $("asciiOnly").checked,
+    offline: $("offline").checked,
+  };
+}
+
+function setStatus(message, isError = false) {
+  const node = $("status");
+  node.textContent = message;
+  node.className = isError ? "fail" : "";
+}
+
+function showNotice(message) {
+  const node = $("notice");
+  node.textContent = message || "";
+  node.hidden = !message;
+}
+
+async function generate() {
+  const options = readOptions();
+  if (!selected.size) { setStatus("Pick at least one word first.", true); return; }
+  if (options.languages.length < options.parts) {
+    setStatus(`Tick at least ${options.parts} languages.`, true);
+    return;
+  }
+  $("go").disabled = true;
+  setStatus("Translating…");
+  showNotice("");
+  try {
+    lastResult = await api("/api/process", {
+      sentence: $("sentence").value,
+      selected: [...selected],
+      options,
+    });
+    chosen = new Map();
+    for (const word of lastResult.words) {
+      if (word.candidates.length) chosen.set(word.index, word.candidates[0].word);
+    }
+    render();
+    const made = lastResult.words.filter((w) => w.candidates.length).length;
+    setStatus(`${made} of ${lastResult.words.length} word(s) macaronized`
+      + ` · ${lastResult.translator === "offline" ? "offline dictionary" : "Google Translate"}`);
+    if (lastResult.notice) showNotice(lastResult.notice);
+  } catch (err) {
+    setStatus(`Failed: ${err.message}`, true);
+  } finally {
+    $("go").disabled = false;
+  }
+}
+
+function colorFor(languages, lang) {
+  const index = languages.indexOf(lang);
+  return `var(--l${(index < 0 ? 0 : index) % LANG_COLOR_COUNT})`;
+}
+
+function render() {
+  if (!lastResult) return;
+  renderSentence();
+  const cards = $("cards");
+  cards.textContent = "";
+  for (const word of lastResult.words) cards.appendChild(renderWord(word));
+}
+
+function renderSentence() {
+  const out = $("outSentence");
+  out.textContent = "";
+  for (const token of lastResult.tokens) {
+    const pick = chosen.get(token.index);
+    if (pick === undefined) { out.appendChild(text(token.text)); continue; }
+    const word = lastResult.words.find((w) => w.index === token.index);
+    const candidate = word && word.candidates.find((c) => c.word === pick);
+    out.appendChild(el("mark", { text: candidate ? candidate.display : token.text }));
+  }
+  $("result").hidden = false;
+}
+
+function renderWord(word) {
+  const languages = word.translations.map((row) => row.lang);
+  const top = chosen.get(word.index);
+  const current = word.candidates.find((c) => c.word === top);
+
+  const heading = el("h3", {}, [
+    text(word.source),
+    el("span", { class: "arrow", text: " → " }),
+    el("span", { class: "mixed", text: current ? current.display : "—" }),
+  ]);
+  const card = el("section", { class: "panel word-card" }, [heading]);
+
+  if (word.error) {
+    card.appendChild(el("p", { class: "notice", text: word.error }));
+  }
+
+  /* Step 2a: the translations */
+  const rows = [el("tr", {}, [
+    el("th", { text: "Language" }), el("th", { text: "Translation" }),
+    el("th", { text: "Cut from" }),
+  ])];
+  for (const row of word.translations) {
+    const detail = row.error
+      ? el("span", { class: "why", text: row.error })
+      : (row.dropped ? el("span", { class: "why", text: `skipped — ${row.dropped}` })
+                     : el("span", { class: "cut", text: row.normalized }));
+    const shown = row.text + (row.romanized && row.romanized !== row.text
+      ? ` · ${row.romanized}` : "");
+    rows.push(el("tr", { class: row.used ? null : "unused" }, [
+      el("td", { text: `${row.name} (${row.lang})` }),
+      el("td", { text: shown || "—" }),
+      el("td", {}, [detail]),
+    ]));
+  }
+  card.appendChild(el("div", { class: "step" }, [
+    el("h4", { text: "Step 2a · Translations" }),
+    el("table", {}, [el("tbody", {}, rows)]),
+  ]));
+
+  /* Step 2b: the fragments */
+  if (word.fragments.length) {
+    const block = el("div", { class: "step" }, [el("h4", { text: "Step 2b · Fragments" })]);
+    for (const entry of word.fragments) {
+      const group = el("div", { class: "fraglang" }, [
+        el("div", { class: "lname" }, [
+          text(`${entry.name} · `), el("b", { text: entry.word }),
+        ]),
+      ]);
+      for (const role of ROLES) {
+        const list = entry.roles[role] || [];
+        if (!list.length) continue;
+        const row = el("div", { class: "frow" }, [el("span", { class: "rolelabel", text: role })]);
+        for (const piece of list) {
+          row.appendChild(el("span", {
+            class: "frag", text: piece,
+            style: `color:${colorFor(languages, entry.lang)}`,
+          }));
+        }
+        group.appendChild(row);
+      }
+      block.appendChild(group);
+    }
+    card.appendChild(block);
+  }
+
+  /* Step 3: the recombined candidates */
+  if (word.candidates.length) {
+    const block = el("div", { class: "step" }, [el("h4", { text: "Step 3 · Mixed-language words" })]);
+
+    const used = [...new Set(word.candidates.flatMap((c) => c.parts.map((p) => p.lang)))];
+    const legend = el("div", { class: "legend" });
+    for (const lang of used) {
+      const row = word.translations.find((t) => t.lang === lang);
+      legend.appendChild(el("span", { style: `color:${colorFor(languages, lang)}` },
+        [el("b", { text: lang }), text(` ${row ? row.name : lang}`)]));
+    }
+    block.appendChild(legend);
+
+    const list = el("ol", { class: "cands" });
+    word.candidates.forEach((candidate, index) => {
+      const button = el("button", {
+        type: "button", class: "cand",
+        "aria-pressed": candidate.word === top ? "true" : "false",
+        title: `length ${candidate.metrics.length} · pronounceable `
+             + `${candidate.metrics.pronounceable} · balance ${candidate.metrics.balance}`,
+      }, [el("span", { class: "rank", text: `${index + 1}.` })]);
+
+      const built = el("span", { class: "built" });
+      for (const part of candidate.parts) {
+        built.appendChild(el("span", {
+          class: "seg", text: part.text,
+          style: `color:${colorFor(languages, part.lang)}`,
+          title: `${part.lang} ${part.role}`,
+        }));
+      }
+      button.appendChild(built);
+      button.appendChild(el("span", {
+        class: "score",
+        text: `${candidate.parts.map((p) => p.lang).join(" + ")} · ${candidate.score.toFixed(3)}`,
+      }));
+      button.addEventListener("click", () => {
+        chosen.set(word.index, candidate.word);
+        render();
+      });
+      list.appendChild(el("li", {}, [button]));
+    });
+    block.appendChild(list);
+    card.appendChild(block);
+  }
+  return card;
+}
+
+/* ---- Wiring --------------------------------------------------------- */
+
+$("go").addEventListener("click", generate);
+$("reroll").addEventListener("click", () => {
+  $("seed").value = String(Math.floor(Math.random() * 100000));
+  if (selected.size) generate();
+});
+$("sentence").addEventListener("input", refreshTokens);
+$("copy").addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText($("outSentence").textContent);
+    setStatus("Sentence copied.");
+  } catch {
+    setStatus("Could not copy — select the sentence and copy it manually.", true);
+  }
+});
+$("theme").addEventListener("click", () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const now = document.documentElement.getAttribute("data-theme")
+    || (dark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", now === "dark" ? "light" : "dark");
+});
+
+(async function start() {
+  await loadLanguages();
+  await refreshTokens();
+  // Pre-pick "bird" and "garden" in the sample sentence so the page shows
+  // something useful on the first click of Generate.
+  for (const token of tokens) {
+    if (token.is_word && ["bird", "garden"].includes(token.text.toLowerCase())) {
+      selected.add(token.index);
+    }
+  }
+  drawChips();
+})();
+</script>
+</body>
+</html>
